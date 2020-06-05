@@ -1,5 +1,9 @@
 FROM alpine:latest
 
+
+ENV TOR_START_PORT_SOCKS 9000
+ENV TOR_START_PORT_CONTROL 9900
+ENV TOR_INSTANCES 10
 ENV BUILD_PACKAGES="build-base openssl" \
     PACKAGES="tor sudo bash git haproxy privoxy npm procps"
 
@@ -41,4 +45,13 @@ RUN	git clone https://github.com/trimstray/multitor && \
 WORKDIR /multitor/
 EXPOSE	16379
 
-CMD multitor --init 5 --user root --socks-port 9000 --control-port 9900 --proxy privoxy --haproxy --verbose --debug > /tmp/multitor.log; tail -f /tmp/multitor.log
+CMD multitor \
+--init ${TOR_INSTANCES} \
+--user root \
+--socks-port ${TOR_START_PORT_SOCKS} \
+--control-port ${TOR_START_PORT_CONTROL} \
+#--proxy privoxy \
+--haproxy \
+--verbose \
+--debug \
+> /tmp/multitor.log; tail -f /tmp/multitor.log
