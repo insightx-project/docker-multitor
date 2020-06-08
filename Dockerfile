@@ -53,4 +53,4 @@ CMD multitor \
 --proxy privoxy \
 --haproxy \
 --verbose \
---debug; read -p "Press enter to continue"
+--debug > /mnt/multitor.log; tail -f /mnt/multitor.log
