@@ -50,8 +50,7 @@ CMD multitor \
 --user root \
 --socks-port ${TOR_START_PORT_SOCKS} \
 --control-port ${TOR_START_PORT_CONTROL} \
-#--proxy privoxy \
+--proxy privoxy \
 --haproxy \
 --verbose \
---debug \
-> /tmp/multitor.log; tail -f /tmp/multitor.log
+--debug
